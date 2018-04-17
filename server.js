@@ -1,10 +1,11 @@
 //require express in our app
  const express = require('express'),
   	bodyParser = require('body-parser'),
-  	indexRoute = require('./public/scripts/main'),
-  	mongoose = require('mongoose');
+  	mongoose = require('mongoose'),
+  	db = require('./models'),
+  	indexRoute = require("./routes/index");
+  	mongoose.connect('mongodb://localhost/toDoApp');
 
-mongoose.connect('mongodb://localhost/todo-app');
 
 
 // generate a new express app and call it 'app'
@@ -14,7 +15,7 @@ var app = express();
 app.use(express.static('public'));
 
 // body parser config to accept our datatypes
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //initialize variable to use for our environment port
 const port = process.env.PORT || 3000;
@@ -25,7 +26,11 @@ app.set('view engine', 'ejs');
 
 var Todo = require('./models/todo');
 
-app.use('/', indexRoute)
+//=====
+//routes
+//=====
+
+app.use('/', indexRoute);
 
 app.listen(port, ()=> {
   console.log(`Server is running.... ${port}`);
