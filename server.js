@@ -24,8 +24,6 @@ const port = process.env.PORT || 3000;
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-var Todo = require('./models/todo');
-
 //=====
 //routes
 //=====
